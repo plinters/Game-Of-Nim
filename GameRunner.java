@@ -1,27 +1,38 @@
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
-public class GameRunner
-{
-  public static void main(String[] args) {
-        System.out.println("Welcome to the Game of Nim!");
-        System.out.println("Created by: Daniel Z. and Pranav A.");
 
-        Board.pileSize = ThreadLocalRandom.current().nextInt(Board.MIN_SIZE, Board.MAX_SIZE + 1);
+public class GameRunner {
+   public GameRunner() {
+   }
 
-        // Game nim = new Game();
-        // nim.play();
-        Scanner keyboard = new Scanner(System.in);
+   public static void main(String[] var0) {
+      System.out.println("Welcome to the Game of Nim!");
+      System.out.println("Created by: Daniel Z. and Pranav A.");
+      Scanner var1 = new Scanner(System.in);
+      System.out.print("Enter name for player 1: ");
+      String var2 = var1.nextLine().trim();
+      if (var2.isEmpty()) {
+         var2 = "Player 1";
+      }
 
-        System.out.print("Start? (Y/N): ");
-        String answer = keyboard.nextLine();
+      System.out.print("Enter name for player 2: ");
+      String var3 = var1.nextLine().trim();
+      if (var3.isEmpty()) {
+         var3 = "Player 2";
+      }
 
-        if (answer.equalsIgnoreCase("Y")) {
-          System.out.println("The game will start with a pile size of: " + Board.pileSize);
-        }
+      Game var4 = new Game(var2, var3);
+      boolean var5 = true;
 
-        else {
-          System.out.println("To start, please input Y.");
-        }
-        keyboard.close();
-    }
+      while(var5) {
+         var4.playRound(var1);
+         System.out.print("\nPlay again? (Y/N): ");
+         String var6 = var1.nextLine().trim();
+         if (!var6.equalsIgnoreCase("Y")) {
+            var5 = false;
+         }
+      }
+
+      System.out.println("\nThanks for playing! Final scores:");
+      var4.printScores();
+   }
 }
